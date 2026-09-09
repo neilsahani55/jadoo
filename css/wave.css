@@ -14,15 +14,14 @@
 }
 
 .wave {
-  filter: blur(0.1vw);
   width: 2.5vw;
-  height: 2.5vw;
+  height: 40px;
   background: green;
-  -webkit-transform: translateZ(0px) rotateX(90deg);
-          transform: translateZ(0px) rotateX(90deg);
+  -webkit-transform: translateZ(0px) rotateX(90deg) scaleY(0.2);
+          transform: translateZ(0px) rotateX(90deg) scaleY(0.2);
   -webkit-transform-origin: top;
           transform-origin: top;
-  margin: -22px 3px;
+  margin: -30px 3px;
   -webkit-animation: wave 1s ease-in-out infinite alternate;
           animation: wave 1s ease-in-out infinite alternate;
   opacity: .7;
@@ -629,20 +628,24 @@
           animation-delay: 0.028s;
 }
 
+/* scaleY instead of height so the animation runs on the GPU compositor
+   without triggering layout for every wave on every frame */
 @-webkit-keyframes wave {
   from {
-    height: 8px;
+    -webkit-transform: translateZ(0px) rotateX(90deg) scaleY(0.2);
   }
   to {
-    height: 40px;
+    -webkit-transform: translateZ(0px) rotateX(90deg) scaleY(1);
   }
 }
 
 @keyframes wave {
   from {
-    height: 8px;
+    -webkit-transform: translateZ(0px) rotateX(90deg) scaleY(0.2);
+            transform: translateZ(0px) rotateX(90deg) scaleY(0.2);
   }
   to {
-    height: 40px;
+    -webkit-transform: translateZ(0px) rotateX(90deg) scaleY(1);
+            transform: translateZ(0px) rotateX(90deg) scaleY(1);
   }
 }

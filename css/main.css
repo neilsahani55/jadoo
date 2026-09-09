@@ -296,6 +296,19 @@ pre {
   .keypad:not(.nodisplay) {
     display: flex;
   }
+
+  /* mobile GPUs choke on a full-screen blur over animating content —
+     drop the decorative blurs and the invisible flicker overlay */
+  .crt,
+  .circle,
+  .prompt {
+    -webkit-filter: none;
+    filter: none;
+  }
+
+  .background {
+    display: none;
+  }
 }
 
 /* landscape phones: keep the keypad clear of the bottom-left prompt */
@@ -353,15 +366,8 @@ pre {
 
   .wave {
     width: 3vw;
-    height: 3vw;
-    margin: -1.4vw 0.2vw;
-    filter: blur(0.1vw);
-    animation-name: wave-sm;
-  }
-
-  @keyframes wave-sm {
-    from { height: 1.2vw; }
-    to { height: 6vw; }
+    height: 6vw;
+    margin: -2.6vw 0.2vw;
   }
 
   .wrap {
