@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=VT323');
 
+html {
+  touch-action: manipulation;
+}
+
 body {
   pointer-events: none;
   cursor: none;
@@ -7,6 +11,9 @@ body {
   margin: 0;
   text-align: center;
   overflow: hidden;
+  background: #161913;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .crt {
@@ -27,6 +34,7 @@ body {
   justify-content: center;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
 }
 
 .content {
@@ -226,3 +234,171 @@ pre {
 .nodisplay {
   display: none;
 }
+
+/* ---------- touch support ---------- */
+
+.enter-text {
+  pointer-events: all;
+}
+
+.hint-touch {
+  display: none;
+}
+
+.keypad {
+  display: none;
+  position: fixed;
+  bottom: calc(2.5vh + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 2.4vmin;
+  z-index: 3;
+  pointer-events: all;
+}
+
+.key {
+  pointer-events: all;
+  font-family: 'VT323', monospace;
+  color: #95e208;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid #95e208;
+  border-radius: 1.4vmin;
+  width: min(13vmin, 68px);
+  height: min(13vmin, 68px);
+  font-size: min(7.5vmin, 38px);
+  line-height: 1;
+  padding: 0;
+  box-shadow: 0 0 1.4vmin rgba(149, 226, 8, 0.5), inset 0 0 1vmin rgba(149, 226, 8, 0.25);
+  text-shadow: 0 0 1vmin rgba(149, 226, 8, 0.8);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.key.playing,
+.key:active {
+  background: #95e208;
+  color: #161913;
+  transform: scale(0.92);
+}
+
+/* keypad and tap hint on devices without a physical keyboard (or narrow windows) */
+@media (hover: none), (pointer: coarse), (max-width: 820px) {
+  .hint-desktop {
+    display: none;
+  }
+
+  .hint-touch {
+    display: inline;
+  }
+
+  .keypad:not(.nodisplay) {
+    display: flex;
+  }
+}
+
+/* landscape phones: keep the keypad clear of the bottom-left prompt */
+@media (orientation: landscape) and (max-height: 620px) {
+  .keypad {
+    left: auto;
+    right: 2.5vw;
+    transform: none;
+  }
+}
+
+/* ---------- portrait phones & tablets ---------- */
+
+@media (max-width: 820px) and (orientation: portrait) {
+  .crt {
+    font-size: 4.5vw;
+  }
+
+  .enter-text h1 {
+    font-size: 8vw;
+  }
+
+  .header {
+    font-size: 4.2vw;
+    right: 2vw;
+  }
+
+  .sending, .receiving {
+    top: 6vh;
+    font-size: 4.2vw;
+  }
+
+  .sending {
+    left: 4vw;
+  }
+
+  .receiving {
+    left: auto;
+    right: 4vw;
+  }
+
+  .sea {
+    top: 9vh;
+    width: 30vw;
+    height: 30vw;
+  }
+
+  .sea-left {
+    left: 8vw;
+  }
+
+  .sea-right {
+    left: 58vw;
+  }
+
+  .wave {
+    width: 3vw;
+    height: 3vw;
+    margin: -1.4vw 0.2vw;
+    filter: blur(0.1vw);
+    animation-name: wave-sm;
+  }
+
+  @keyframes wave-sm {
+    from { height: 1.2vw; }
+    to { height: 6vw; }
+  }
+
+  .wrap {
+    top: 52vh;
+    left: 4vw;
+  }
+
+  .circle {
+    width: 36vw;
+    height: 36vw;
+    border-width: 1.6vw;
+  }
+
+  .garbage-left {
+    left: auto;
+    right: 4vw;
+    top: 47vh;
+    font-size: 3.4vw;
+  }
+
+  .garbage-right {
+    right: 4vw;
+    top: 63vh;
+    font-size: 3.8vw;
+  }
+
+  .prompt {
+    font-size: 4vw;
+    left: 3vw;
+    right: 3vw;
+    bottom: 10vh;
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .line {
+    height: 0.4vh;
+  }
+}
+
